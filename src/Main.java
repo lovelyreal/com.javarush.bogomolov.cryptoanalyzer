@@ -1,37 +1,17 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException{
-        StringBuilder pathToDirectory = new StringBuilder();
-        StringBuilder fileName = new StringBuilder();
-        String pathToFile = "D:\\Abracadabra\\asd.txt";
-        boolean flag = false;
-        for (int i = pathToFile.length()-1; i >= 0 ; i--) {
-            if(pathToFile.charAt(i) == '\\') {flag = true;}
-            if(flag){pathToDirectory.append(pathToFile.charAt(i));}
-            else {fileName.append(pathToFile.charAt(i));}
-        }
-        fileName.reverse();
-        pathToDirectory.reverse();
-        System.out.println(fileName);
-        System.out.println(pathToDirectory);
-        InputStreamReader fileReader = new InputStreamReader(new FileInputStream(pathToFile));
-
-        ArrayList<Character> chars = new ArrayList<>(1024);
-        while(fileReader.ready()){
-            chars.add(Character.valueOf((char) fileReader.read()));
-        }
-        for (Character aChar : chars) {
-            System.out.print(aChar);
-        }
-        File f = new File(pathToDirectory.toString() + "1.txt");
-        f.createNewFile();
-
-        try(FileOutputStream fileOutputStream = new FileOutputStream(f)){
-            for (Character aChar : chars) {
-                fileOutputStream.write(aChar);
-            }
-        }
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Напишите путь к файлу, который нужно зашифровать: ");
+        String pathToFile = scan.nextLine();
+        System.out.println("Напишите ключ для шифровки: ");
+        int codeToEncrypt = scan.nextInt();
+        Encoder nEncoder = new Encoder(codeToEncrypt, pathToFile);
+        nEncoder.findPathToDirectory();
+        nEncoder.Encode();
+        System.out.println("Файл закодирован");
     }
 }
