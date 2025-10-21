@@ -1,17 +1,30 @@
-import java.io.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException{
+    public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Напишите путь к файлу, который нужно зашифровать: ");
-        String pathToFile = scan.nextLine();
-        System.out.println("Напишите ключ для шифровки: ");
-        int codeToEncrypt = scan.nextInt();
-        Encoder nEncoder = new Encoder(codeToEncrypt, pathToFile);
-        nEncoder.findPathToDirectory();
-        nEncoder.Encode();
-        System.out.println("Файл закодирован");
+        System.out.println("Что вы хотите сделать?");
+        System.out.println("1. Зашифровать");
+        System.out.println("2. Расшифровать");
+        int result = findCommand();
+        if(result == 1){
+
+        }
+
+    }
+    public static int findCommand() {
+        Scanner scan = new Scanner(System.in);
+        boolean flag = false;
+        int intResult = -1;
+        while (!flag) {
+            String result = scan.next();
+            try {
+                intResult = Integer.parseInt(result);
+                flag = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Вы ввели не число, введите число.");
+            }
+        }
+        return intResult;
     }
 }
