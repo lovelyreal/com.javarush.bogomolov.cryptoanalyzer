@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Encoder {
     private int codeToEncrypt;
@@ -12,7 +13,7 @@ public class Encoder {
     private static ArrayList<Character> alphabet = new ArrayList<>();
 
     static {
-        alphabet.add('a');
+        alphabet.add('а');
         alphabet.add('б');
         alphabet.add('в');
         alphabet.add('г');
@@ -94,6 +95,7 @@ public class Encoder {
     }
 
     public void Encode() {
+        Scanner scan = new Scanner(System.in);
         File newFile = new File(pathToDirectory.toString() + "Ключ - " + codeToEncrypt + ".txt");
         try {
             newFile.createNewFile();
@@ -102,24 +104,24 @@ public class Encoder {
         }
 
         try (InputStreamReader fileReader = new InputStreamReader(new FileInputStream(pathToFile));
-             FileOutputStream fileOutputStream = new FileOutputStream(newFile)) {
+             FileWriter fileWriter = new FileWriter(newFile)) {
             while (fileReader.ready()) {
                 chars.add(Character.valueOf((char) fileReader.read()));
             }
             for (Character aChar : chars) {
                 char thisChar;
-
+                int indexOfChar = 0;
                 if (!alphabet.contains(aChar)) {
-                    fileOutputStream.write(aChar);
+                    fileWriter.write(aChar);
                 } else {
-                    int indexOfThisChar = -1;
-                    for (int i = 1; i < alphabet.size(); i++) {
-                        if (alphabet.get(i) == aChar) {
-                            indexOfThisChar = i;
+                    for (int i = 0; i < alphabet.size(); i++) {
+                        if (alphabet.get(i).equals(aChar)){
+                            indexOfChar = i;
+                            break;
                         }
                     }
-                    thisChar = alphabet.get((indexOfThisChar+codeToEncrypt)% alphabet.size());
-                    fileOutputStream.write(thisChar);
+                    thisChar = alphabet.get((indexOfChar + codeToEncrypt)%alphabet.size());
+                    fileWriter.write(thisChar);
                 }
 
 
@@ -127,8 +129,12 @@ public class Encoder {
             }
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден. Проверьте путь на правильность написания)");
+            Encoder encoder = new Encoder(codeToEncrypt, scan.nextLine());
+            encoder.findPathToDirectory();
+            encoder.Encode();
         } catch (IOException e) {
             System.out.println("Непредвиденная ошибка...");
+            Encoder encoder = new Encoder(codeToEncrypt,scan.nextLine());
         }
     }
 }
