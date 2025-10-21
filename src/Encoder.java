@@ -43,7 +43,7 @@ public class Encoder {
     }
 
     public void Encode() {
-        File newFile = new File(pathToDirectory.toString() + "Ключ - " +codeToEncrypt + ".txt");
+        File newFile = new File(pathToDirectory.toString() + "Ключ - " + codeToEncrypt + ".txt");
         try {
             newFile.createNewFile();
         } catch (IOException e) {
@@ -61,7 +61,7 @@ public class Encoder {
                 fileOutputStream.write(thisChar);
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден. Проверь на правильность написания)");
+            System.out.println("Файл не найден. Проверьте путь на правильность написания)");
         } catch (IOException e) {
             System.out.println("Непредвиденная ошибка...");
         }
