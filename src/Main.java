@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -8,7 +9,13 @@ public class Main {
         System.out.println("2. Расшифровать");
         int result = findCommand();
         if(result == 1){
-
+            System.out.println("Введите путь к файлу: ");
+            String pathToFile = scan.nextLine();
+            System.out.println("Введите ключ: ");
+            int codeToEncrypt = Integer.parseInt(scan.next());
+            Encoder encoder = new Encoder(codeToEncrypt, pathToFile);
+            encoder.findPathToDirectory();
+            encoder.Encode();
         }
 
     }
