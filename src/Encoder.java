@@ -8,17 +8,12 @@ public class Encoder {
     private StringBuilder fileName = new StringBuilder();
     private ArrayList<Character> chars = new ArrayList<>(1024);
 
+
     public int getCodeToEncrypt() {
         return codeToEncrypt;
     }
-    public void setCodeToEncrypt(int codeToEncrypt) {
-        this.codeToEncrypt = codeToEncrypt;
-    }
     public String getPathToFile() {
         return pathToFile;
-    }
-    public void setPathToFile(String pathToFile) {
-        this.pathToFile = pathToFile;
     }
     public StringBuilder getPathToDirectory() {
         return pathToDirectory;
