@@ -9,56 +9,69 @@ public class Encoder {
     private StringBuilder pathToDirectory = new StringBuilder();
     private StringBuilder fileName = new StringBuilder();
     private ArrayList<Character> chars = new ArrayList<>(1024);
-    private static HashMap<Integer, Character> alphabet =new HashMap<>();
-    static {
-            alphabet.put(1, 'a');
-            alphabet.put(2, 'б');
-            alphabet.put(3, 'в');
-            alphabet.put(4, 'г');
-            alphabet.put(5, 'д');
-            alphabet.put(6, 'е');
-            alphabet.put(7, 'ё');
-            alphabet.put(8, 'ж');
-            alphabet.put(9, 'з');
-            alphabet.put(10, 'и');
-            alphabet.put(11, 'й');
-            alphabet.put(12, 'к');
-            alphabet.put(13, 'л');
-            alphabet.put(14, 'м');
-            alphabet.put(15, 'н');
-            alphabet.put(16, 'о');
-            alphabet.put(17, 'п');
-            alphabet.put(18, 'р');
-            alphabet.put(19, 'с');
-            alphabet.put(20, 'т');
-            alphabet.put(21, 'у');
-            alphabet.put(22, 'ф');
-            alphabet.put(23, 'х');
-            alphabet.put(24, 'ц');
-            alphabet.put(25, 'ч');
-            alphabet.put(26, 'ш');
-            alphabet.put(27, 'щ');
-            alphabet.put(28, 'ъ');
-            alphabet.put(29, 'ы');
-            alphabet.put(30, 'ь');
-            alphabet.put(31, 'э');
-            alphabet.put(32, 'ю');
-            alphabet.put(33, 'я');
-    }
+    private static ArrayList<Character> alphabet = new ArrayList<>();
 
+    static {
+        alphabet.add('a');
+        alphabet.add('б');
+        alphabet.add('в');
+        alphabet.add('г');
+        alphabet.add('д');
+        alphabet.add('е');
+        alphabet.add('ё');
+        alphabet.add('ж');
+        alphabet.add('з');
+        alphabet.add('и');
+        alphabet.add('й');
+        alphabet.add('к');
+        alphabet.add('л');
+        alphabet.add('м');
+        alphabet.add('н');
+        alphabet.add('о');
+        alphabet.add('п');
+        alphabet.add('р');
+        alphabet.add('с');
+        alphabet.add('т');
+        alphabet.add('у');
+        alphabet.add('ф');
+        alphabet.add('х');
+        alphabet.add('ц');
+        alphabet.add('ч');
+        alphabet.add('ш');
+        alphabet.add('щ');
+        alphabet.add('ъ');
+        alphabet.add('ы');
+        alphabet.add('ь');
+        alphabet.add('э');
+        alphabet.add('ю');
+        alphabet.add('я');
+        alphabet.add('.');
+        alphabet.add(',');
+        alphabet.add('"');
+        alphabet.add(':');
+        alphabet.add('-');
+        alphabet.add('!');
+        alphabet.add('?');
+        alphabet.add(' ');
+
+    }
 
     public int getCodeToEncrypt() {
         return codeToEncrypt;
     }
+
     public String getPathToFile() {
         return pathToFile;
     }
+
     public StringBuilder getPathToDirectory() {
         return pathToDirectory;
     }
+
     public StringBuilder getFileName() {
         return fileName;
     }
+
     public Encoder(int codeToEncrypt, String pathToFile) {
         this.codeToEncrypt = codeToEncrypt;
         this.pathToFile = pathToFile;
@@ -90,13 +103,27 @@ public class Encoder {
 
         try (InputStreamReader fileReader = new InputStreamReader(new FileInputStream(pathToFile));
              FileOutputStream fileOutputStream = new FileOutputStream(newFile)) {
-            while(fileReader.ready()){
+            while (fileReader.ready()) {
                 chars.add(Character.valueOf((char) fileReader.read()));
             }
             for (Character aChar : chars) {
-                char thisChar = aChar;
-                thisChar += codeToEncrypt;
-                fileOutputStream.write(thisChar);
+                char thisChar;
+
+                if (!alphabet.contains(aChar)) {
+                    fileOutputStream.write(aChar);
+                } else {
+                    int indexOfThisChar = -1;
+                    for (int i = 1; i < alphabet.size(); i++) {
+                        if (alphabet.get(i) == aChar) {
+                            indexOfThisChar = i;
+                        }
+                    }
+                    thisChar = alphabet.get((indexOfThisChar+codeToEncrypt)% alphabet.size());
+                    fileOutputStream.write(thisChar);
+                }
+
+
+
             }
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден. Проверьте путь на правильность написания)");
