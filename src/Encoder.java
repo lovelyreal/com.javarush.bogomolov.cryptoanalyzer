@@ -1,7 +1,4 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Encoder extends AbstractCoder{
@@ -36,19 +33,20 @@ public class Encoder extends AbstractCoder{
                 chars.add(Character.valueOf((char) fileReader.read()));
             }
             for (Character aChar : chars) {
-                char thisChar;
+                Character thisChar = Character.toLowerCase(aChar);
+                char currentChar;
                 int indexOfChar = 0;
-                if (!alphabet.contains(aChar)) {
-                    fileWriter.write(aChar);
+                if (!alphabet.contains(thisChar)) {
+                    fileWriter.write(thisChar);
                 } else {
                     for (int i = 0; i < alphabet.size(); i++) {
-                        if (alphabet.get(i).equals(aChar)){
+                        if (alphabet.get(i).equals(thisChar)){
                             indexOfChar = i;
                             break;
                         }
                     }
-                    thisChar = alphabet.get((indexOfChar + codeToEncrypt)%alphabet.size());
-                    fileWriter.write(thisChar);
+                    currentChar = alphabet.get((indexOfChar + codeToEncrypt)%alphabet.size());
+                    fileWriter.write(currentChar);
                 }
             }
         } catch (FileNotFoundException e) {

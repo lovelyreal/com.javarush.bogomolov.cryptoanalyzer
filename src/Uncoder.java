@@ -27,19 +27,20 @@ public class Uncoder extends AbstractCoder {
                 chars.add(Character.valueOf((char) fileReader.read()));
             }
             for (Character aChar : chars) {
-                char thisChar;
+                Character thisChar = Character.toLowerCase(aChar);
+                char currentChar;
                 int indexOfChar = 0;
-                if (!alphabet.contains(aChar)) {
-                    fileWriter.write(aChar);
+                if (!alphabet.contains(thisChar)) {
+                    fileWriter.write(thisChar);
                 } else {
                     for (int i = 0; i < alphabet.size(); i++) {
-                        if (alphabet.get(i).equals(aChar)) {
+                        if (alphabet.get(i).equals(thisChar)) {
                             indexOfChar = i;
                             break;
                         }
                     }
-                    thisChar = indexOfChar - (codeToEncrypt % alphabet.size()) >= 0 ? alphabet.get(indexOfChar - (codeToEncrypt % alphabet.size())) : alphabet.get((indexOfChar - (codeToEncrypt % alphabet.size()) + alphabet.size()));
-                    fileWriter.write(thisChar);
+                    currentChar = indexOfChar - (codeToEncrypt % alphabet.size()) >= 0 ? alphabet.get(indexOfChar - (codeToEncrypt % alphabet.size())) : alphabet.get((indexOfChar - (codeToEncrypt % alphabet.size()) + alphabet.size()));
+                    fileWriter.write(currentChar);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -70,19 +71,20 @@ public class Uncoder extends AbstractCoder {
                     charsForBruteForce.add(Character.valueOf((char) fileReader.read()));
                 }
                 for (Character aChar : charsForBruteForce) {
-                    char thisChar;
+                    Character thisChar = Character.toLowerCase(aChar);
+                    char currentChar;
                     int indexOfChar = 0;
-                    if (!alphabet.contains(aChar)) {
-                        fileWriter.write(aChar);
+                    if (!alphabet.contains(thisChar)) {
+                        fileWriter.write(thisChar);
                     } else {
                         for (int i = 0; i < alphabet.size(); i++) {
-                            if (alphabet.get(i).equals(aChar)) {
+                            if (alphabet.get(i).equals(thisChar)) {
                                 indexOfChar = i;
                                 break;
                             }
                         }
-                        thisChar = indexOfChar - (codeToEncrypt % alphabet.size()) >= 0 ? alphabet.get(indexOfChar - (codeToEncrypt % alphabet.size())) : alphabet.get((indexOfChar - (codeToEncrypt % alphabet.size()) + alphabet.size()));
-                        fileWriter.write(thisChar);
+                        currentChar = indexOfChar - (codeToEncrypt % alphabet.size()) >= 0 ? alphabet.get(indexOfChar - (codeToEncrypt % alphabet.size())) : alphabet.get((indexOfChar - (codeToEncrypt % alphabet.size()) + alphabet.size()));
+                        fileWriter.write(currentChar);
                     }
                 }
                 charsForBruteForce.clear();
