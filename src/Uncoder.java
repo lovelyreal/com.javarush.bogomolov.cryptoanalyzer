@@ -56,7 +56,7 @@ public class Uncoder extends AbstractCoder {
 
     public void UncodeByBruteForce() {
         ArrayList<Character> charsForBruteForce = new ArrayList<>(1024);
-        for (int k = 0; k < alphabet.size(); k++) {
+        for (int k = 1; k <= alphabet.size(); k++) {
             codeToEncrypt = k;
             Scanner scan = new Scanner(System.in);
             File newFile = new File(pathToDirectory.toString() + "Расшифровано с ключом - " + codeToEncrypt + ".txt");
