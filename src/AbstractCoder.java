@@ -68,7 +68,4 @@ public class AbstractCoder {
         fileName.reverse();
         pathToDirectory.reverse();
     }
-    protected void de_Or_uncode(){
-
-    }
 }

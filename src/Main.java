@@ -20,7 +20,7 @@ public class Main {
                 scan.nextLine();
             }
             codeToEncrypt = scan.nextInt();
-            Encoder encoder = new Encoder(codeToEncrypt, pathToFile);
+            Encoder encoder = new Encoder(codeToEncrypt, pathToFile,'c');
             encoder.findPathToDirectory();
             encoder.Encode();
         } else if(result == 2){
@@ -33,15 +33,15 @@ public class Main {
                 scan.nextLine();
             }
             codeToEncrypt = scan.nextInt();
-            Uncoder uncoder = new Uncoder(codeToEncrypt, pathToFile);
-            uncoder.findPathToDirectory();
-            uncoder.Uncode();
+            Encoder encoder = new Encoder(codeToEncrypt, pathToFile,'u');
+            encoder.findPathToDirectory();
+            encoder.Encode();
         } else if (result == 3) {
             System.out.println("Введите путь к файлу: ");
             String pathToFile = scan.nextLine();
-            Uncoder uncoder = new Uncoder(pathToFile);
-            uncoder.findPathToDirectory();
-            uncoder.UncodeByBruteForce();
+            Encoder encoder = new Encoder(pathToFile,'u');
+            encoder.findPathToDirectory();
+            encoder.EncodeByBruteForce();
         } else {
             System.out.println("Неизвестная команда, программа завершается...");
         }
